@@ -1,0 +1,154 @@
+﻿@model EmployeePortal.ViewModels.EmployeeListViewModel
+@{
+    ViewData["Title"] = "Список сотрудников";
+    var pageSizeOptions = new List<int> { 3, 5, 10, 15, 20 };
+}
+
+<div class="container mt-1">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow-sm">
+                <h2 class="mb-0 text-primary"><i class="bi bi-people-fill"></i> @ViewData["Title"]</h2>
+                <a class="btn btn-success btn-lg" asp-action="Create">
+                    <i class="bi bi-plus-circle"></i> Добавить сотрудника
+                </a>
+            </div>
+
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["Message"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+                </div>
+            }
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">🔍 Фильтр сотрудников</h5>
+                    <span class="badge bg-light text-dark">Всего сотрудников: @Model.Total 📝</span>
+                </div>
+                <div class="card-body">
+                    <form method="get" asp-controller="Employee" asp-action="List" class="row g-3">
+                        <div class="col-md-3">
+                            <label asp-for="SearchTerm" class="form-label">🔍 Поиск по имени</label>
+                            <input asp-for="SearchTerm" class="form-control" placeholder="Введите имя..." />
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="SelectedDepartmentId" class="form-label">🖥️ Отдел</label>
+                            <select asp-for="SelectedDepartmentId" asp-items="@(new SelectList(Model.Departments, "Id", "Name"))" class="form-control">
+                                <option value="">Все отделы</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="SelectedEmployeeTypeId" class="form-label">📅 Тип сотрудника</label>
+                            <select asp-for="SelectedEmployeeTypeId" asp-items="@(new SelectList(Model.EmployeeTypes, "Id", "Name"))" class="form-control">
+                                <option value="">Все типы</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label asp-for="PageSize" class="form-label">📄 Элементов на странице</label>
+                            <select asp-for="PageSize" asp-items="@(new SelectList(pageSizeOptions))" class="form-control" onchange="this.form.submit();">
+                                <option value="">Выберите</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button type="submit" class="btn btn-success w-100">Применить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th>👤 Имя</th>
+                                <th>📩 Email</th>
+                                <th>💼 Должность</th>
+                                <th>🖥️ Отдел</th>
+                                <th>⚧ Пол</th>
+                                <th>📅 Тип сотрудника</th>
+                                <th class="text-center">⚙️ Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Employees != null && Model.Employees.Count > 0)
+                            {
+                                foreach (var employee in Model.Employees)
+                                {
+                                    <tr>
+                                        <td>@employee.FullName</td>
+                                        <td>@employee.Email</td>
+                                        <td>@employee.Designation?.Name</td>
+                                        <td>@employee.Department?.Name</td>
+                                        <td>@employee.Gender</td>
+                                        <td>@employee.EmployeeType?.Name</td>
+                                        <td class="text-center">
+                                            <a class="btn btn-sm btn-info" asp-controller="Employee" asp-action="Details" asp-route-id="@employee.Id" title="Подробнее">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-warning" asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id" title="Редактировать">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-danger" asp-controller="Employee" asp-action="Delete" asp-route-id="@employee.Id" title="Удалить">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted">Сотрудники не найдены.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <nav aria-label="Пагинация списка сотрудников" class="mt-4">
+                <ul class="pagination justify-content-center mb-0">
+                    @if (Model.PageNumber == 1)
+                    {
+                        <li class="page-item disabled"><span class="page-link">Первая ⏮️</span></li>
+                        <li class="page-item disabled"><span class="page-link">Назад ⬅️</span></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("List", "Employee", GetRouteValuesForPage(1))">Первая ⏮️</a></li>
+                        <li class="page-item"><a class="page-link" href="@Url.Action("List", "Employee", GetRouteValuesForPage(Model.PageNumber - 1))">Назад ⬅️</a></li>
+                    }
+
+                    <li class="page-item active"><span class="page-link">@Model.PageNumber</span></li>
+
+                    @if (Model.PageNumber == Model.TotalPages)
+                    {
+                        <li class="page-item disabled"><span class="page-link">Вперед ➡️</span></li>
+                        <li class="page-item disabled"><span class="page-link">Последняя ⏭️</span></li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="@Url.Action("List", "Employee", GetRouteValuesForPage(Model.PageNumber + 1))">Вперед ➡️</a></li>
+                        <li class="page-item"><a class="page-link" href="@Url.Action("List", "Employee", GetRouteValuesForPage(Model.TotalPages))">Последняя ⏭️</a></li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private object GetRouteValuesForPage(int pageNumber)
+    {
+        return new
+        {
+            SearchTerm = Model.SearchTerm,
+            departmentId = Model.SelectedDepartmentId,
+            employeeTypeId = Model.SelectedEmployeeTypeId,
+            PageSize = Model.PageSize,
+            PageNumber = pageNumber
+        };
+    }
+}
