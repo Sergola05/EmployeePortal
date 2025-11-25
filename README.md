@@ -59,48 +59,6 @@ EmployeePortal/
 ├─ Program.cs
 └─ EmployeePortal.csproj
 ```
-
----
-
-## 💡 Схема структуры проекта
-
-```mermaid
-graph TD
-    A[EmployeePortal] --> B[Controllers]
-    A --> C[Models]
-    A --> D[Views]
-    A --> E[Data]
-    A --> F[Services]
-    A --> G[wwwroot]
-    
-    B --> B1[EmployeeController.cs]
-    B --> B2[AccountController.cs]
-    
-    C --> C1[Department.cs]
-    C --> C2[Designation.cs]
-    C --> C3[Employee.cs]
-    C --> C4[EmployeeType.cs]
-    C --> C5[ErrorViewModel.cs]
-    
-    D --> D1[Employee/]
-    D --> D2[Shared/]
-    
-    D1 --> D11[List.cshtml]
-    D1 --> D12[Create.cshtml]
-    D1 --> D13[Success.cshtml]
-    D1 --> D14[Details.cshtml]
-    D1 --> D15[Update.cshtml]
-    D1 --> D16[Delete.cshtml]
-    
-    E --> E1[ApplicationDbContext.cs]
-    
-    F --> F1[EmployeeService.cs]
-    
-    G --> G1[css/]
-    G --> G2[js/]
-    G --> G3[lib/]
-```
-
 ---
 
 ## ⚡ Функциональность
@@ -185,22 +143,25 @@ https://localhost:5001/
 ## 📸 Скриншоты
 
 * 📷 Employee List Page
-* <img width="1641" height="835" alt="image" src="https://github.com/user-attachments/assets/0b2bdc4e-0266-43e9-a15d-27d2bd5a3264" />
+  <img width="1641" height="835" alt="image" src="https://github.com/user-attachments/assets/0b2bdc4e-0266-43e9-a15d-27d2bd5a3264" />
 
 * 📷 Employee Create Page
-* <img width="1220" height="786" alt="image" src="https://github.com/user-attachments/assets/e568c5e5-1830-43fa-8451-a49a45754b37" />
+ <img width="1220" height="786" alt="image" src="https://github.com/user-attachments/assets/e568c5e5-1830-43fa-8451-a49a45754b37" />
 
 * 📷 Employee Success Page
-* <img width="1159" height="719" alt="image" src="https://github.com/user-attachments/assets/c5cf5f8d-bb01-4894-b4a0-df723c0e22b0" />
+ <img width="1159" height="719" alt="image" src="https://github.com/user-attachments/assets/c5cf5f8d-bb01-4894-b4a0-df723c0e22b0" />
 
 * 📷 Employee Details Page
-* <img width="1095" height="635" alt="image" src="https://github.com/user-attachments/assets/ac59b2e4-d011-484f-b5d2-74f2b1905ea0" />
+ <img width="1095" height="635" alt="image" src="https://github.com/user-attachments/assets/ac59b2e4-d011-484f-b5d2-74f2b1905ea0" />
 
 * 📷 Employee Update Page
-* <img width="1212" height="782" alt="image" src="https://github.com/user-attachments/assets/73651555-58e5-4177-868e-afa715c86edd" />
+ <img width="1212" height="782" alt="image" src="https://github.com/user-attachments/assets/73651555-58e5-4177-868e-afa715c86edd" />
 
 * 📷 Employee Delete Page
-* <img width="1075" height="723" alt="image" src="https://github.com/user-attachments/assets/19545cfd-662f-4b6b-a524-dae0b4282f16" />
+ <img width="1075" height="723" alt="image" src="https://github.com/user-attachments/assets/19545cfd-662f-4b6b-a524-dae0b4282f16" />
+ * 📷 Employee DataBase
+<img width="266" height="269" alt="image" src="https://github.com/user-attachments/assets/ab286cd0-e181-42e2-a38e-1ea9873761e2" />
+
 
 
 ---
