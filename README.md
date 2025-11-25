@@ -159,8 +159,10 @@ https://localhost:5001/
 
 * 📷 Employee Delete Page
  <img width="1075" height="723" alt="image" src="https://github.com/user-attachments/assets/19545cfd-662f-4b6b-a524-dae0b4282f16" />
+ 
  * 📷 Employee DataBase
-<img width="266" height="269" alt="image" src="https://github.com/user-attachments/assets/ab286cd0-e181-42e2-a38e-1ea9873761e2" />
+ <img width="266" height="269" alt="image" src="https://github.com/user-attachments/assets/ab286cd0-e181-42e2-a38e-1ea9873761e2" />
+
 
 
 
